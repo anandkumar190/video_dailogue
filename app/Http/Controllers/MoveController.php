@@ -58,6 +58,16 @@ class MoveController extends Controller
    }
 
 
+   public function GetAllMoviesDialoguebyid($id)
+   {  
+   
+    $result = Movie::with('casts','dailogues')->find($id);
+    return $result;
+
+
+   }
+
+
    private function str_transforms($string) // this function replace multiple Punctuation except this string "I just!!! can!!! not!!! believe!!! it!!!" 
    {
     $newstr=preg_replace('/\?[? ]+/', '?', $string);
@@ -76,13 +86,13 @@ class MoveController extends Controller
     // ]);   
 
         
-      $movie_result= Movie::updateOrCreate(['id'=>$request->movie_name],[
+      $movie_result= Movie::updateOrCreate(['id'=>$request->movie_id],[
         'movie_name'=>$request->movie_name,
         'movie_durstion'=>$request->movie_durstion
        ]);
        
     foreach ($request->cast_name as $key => $value) {
-        Cast::creaupdateOrCreatete(['id'=>$request->cast_id[$key]],[
+        Cast::updateOrCreate(['id'=>$request->cast_id[$key]],[
             'cast_name'=>$value,
             'movie_id'=>$movie_result->id,
             'cast_gender'=>$request->cast_gender[$key],

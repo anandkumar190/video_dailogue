@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('StoreMovieDialogue','MoveController@StoreMovieDialogue');
-Route::get('GetAllMoviesDialogue','MoveController@GetAllMoviesDialogue');
+Route::post('updateMovieDialogue','MoveController@updateMovieDialogue');
 Route::get('delete/{id}','MoveController@Delete');
-Route::get('GetAllMoviesDialogue','MoveController@GetAllMoviesDialogue');
+Route::get('GetAllMoviesDialoguebyid/{id}','MoveController@GetAllMoviesDialoguebyid');

@@ -47,8 +47,9 @@
       @foreach($result as $val )
       <tr>
         <td>{{$val['movie_name']}}</td>
-        <td>{{$val['move_name']}}</td>
-        <td> <a href="{{url('api/delete/'.$val['id'])}}" ><i class="fa fa-trash"></i></a> </td>
+        <td>{{$val['movie_durstion']}}</td>
+        <td> <a href="{{url('api/delete/'.$val['id'])}}" ><i class="fa fa-trash"></i></a> 
+        <button value="{{$val['id']}}" onclick="editmovedailogue(this.value)" >  <i class="fa fa-pencil"></i> </button> </td>
       </tr>
 
       @endforeach
@@ -77,10 +78,11 @@
         <form method="post" action="{{url('api/StoreMovieDialogue')}}" id="moviedalogue">
         <div class="row mb-2">
             <div class="col-md-3">
-                <input type="text" name="movie_name" class="form-control m-input" placeholder="Movie name" autocomplete="off">
+                <input type="hidden" name="movie_id" id="movie_id"> 
+                <input type="text" name="movie_name" id="movie_name" class="form-control m-input" placeholder="Movie name" autocomplete="off">
             </div>
             <div class="col-md-3">
-                <input type="text" name="movie_durstion" class="form-control m-input" placeholder="Movie durstion" autocomplete="off">
+                <input type="text" name="movie_durstion" id="movie_durstion" class="form-control m-input" placeholder="Movie durstion" autocomplete="off">
             </div>
         </div> 
 
@@ -142,7 +144,7 @@
 
             <div class="text-center" style="margin: 20px 0px 20px 0px;">
          
-            <button  type="submit" class="btn btn-info">Submit</button>
+            <button id="submitbtn" type="submit" class="btn btn-info">Submit</button>
      </div>
             
         </form>
@@ -162,10 +164,9 @@
   <script type="text/javascript">
         // add row
         $("#addRow").click(function () {
-            var html = '';
+            let html = '';
             html += '<div id="inputFormRow">';
-            html += '<div class="input-group mb-3"><div class="col-md-3">';
-            
+            html += '<div class="input-group mb-3"><div class="col-md-3">';     
             html += '<input type="text" name="cast_name[]" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
             html += ' </div><div class="col-md-3">';   
             html += '  <input type="text" name="cast_gender[]" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
@@ -186,12 +187,12 @@
         });
 
         $("#addRow2").click(function () {
-            var html = '';
+            let html = '';
             html += '<div id="inputFormRow2">';
             html += '<div class="input-group mb-3"><div class="col-md-2">';
             html += '<input type="time"  step=".1" name="start_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
             html += ' </div><div class="col-md-2">';   
-            html += '  <input type="time" step=".1" name="end_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+            html += '<input type="time" step=".1" name="end_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
             html += '</div> <div class="col-md-2">';  
             html += '  <input type="text" name="character_name[]" class="form-control m-input" placeholder="Character name" autocomplete="off">';
             html += '</div> <div class="col-md-2">';  
@@ -231,6 +232,67 @@ $(document).ready(function() {
         });
     });
 });
+
+ function editmovedailogue(id) {
+ //  alert(id);
+
+  let url="{{url('api/GetAllMoviesDialoguebyid/')}}"+'/'+id;
+   $.get(url, function(data, status){
+    // alert("Data: " + data + "\nStatus: " + status);
+    $('#movie_name').val(data.movie_name);
+    $('#movie_durstion').val(data.movie_durstion);
+    $('#movie_id').val(data.id);
+
+
+
+      let html3='';  
+      $.each( data.casts, function( key, value ) {
+        alert( key + ": " + value.character_name );
+            html3 += '<div id="inputFormRow">';
+            html3 += '<div class="input-group mb-3"><div class="col-md-3"><input type="hidden" name="cast_id[]" value ="'+value.id+'">';
+            html3 += '<input type="text" name="cast_name[]"  value ="'+value.cast_name+'" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
+            html3 += ' </div><div class="col-md-3">';   
+            html3 += '  <input type="text" name="cast_gender[]" value ="'+value.cast_gender+'" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
+            html3 += '</div> <div class="col-md-3">';  
+            html3 += ' <input type="text" name="cast_character[]" value ="'+value.cast_character+'" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
+            html3 += ' </div><div class="col-md-3">';      
+            html3 += '<div class="input-group-append">';
+            html3 += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html3 += '</div></div>';
+            html3 += '</div>';
+      });
+      
+      let html2 = '';
+      $.each( data.dailogues, function( key, val ) {
+       
+            html2 += '<div id="inputFormRow2">';
+            html2 += '<div class="input-group mb-3"><div class="col-md-2"><input type="hidden" name="dailogue_id[]" value ="'+val.id+'">';
+            html2 += '<input type="time"  step=".1" name="start_time[]" value ="'+val.start_time+'" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+            html2 += ' </div><div class="col-md-2">';   
+            html2 += '<input type="time" step=".1" name="end_time[]" value ="'+val.end_time+'" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+            html2 += '</div> <div class="col-md-2">';  
+            html2 += '  <input type="text" name="character_name[]" value ="'+val.character_name+'" class="form-control m-input" placeholder="Character name" autocomplete="off">';
+            html2 += '</div> <div class="col-md-2">';  
+            html2 += ' <input type="text" name="dailogue[]" value ="'+val.dailogue+'" class="form-control m-input" placeholder="Dailogue" autocomplete="off">';
+            html2 += ' </div><div class="col-md-2">';      
+            html2 += '<div class="input-group-append">';
+            html2 += '<button id="removeRow2" type="button" class="btn btn-danger">Remove</button>';
+            html2 += '</div></div>';
+            html2 += '</div>';
+      }); 
+     
+      $('#newRow').replaceWith(html3);
+      $('#newRow2').replaceWith(html2);
+      let actionurl="{{url('api/updateMovieDialogue')}}";
+      $("#moviedalogue").attr('action',actionurl);
+      $("#submitbtn").html("Update");
+      $('#moviemodal').modal('show');
+
+    
+  });
+
+   
+ }
     </script>
 
 </html>
