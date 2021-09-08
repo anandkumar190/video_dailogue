@@ -1,4 +1,4 @@
-after clone
-  composer update
-  .env  Update File
-  php artisan Migrate 
+After clone<br>
+  composer update <br>
+  .env  Update File<br>
+  php artisan Migrate <br>
