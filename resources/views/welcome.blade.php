@@ -14,25 +14,18 @@
 <body>
 
 <div class="container">
-
-<div class="text-center" style="margin: 20px 0px 20px 0px;">
-         
-         <h1 class="text-secondary">Video Dailogue</h1>
-     </div>
-<div class="row">
-        <!-- <div class="col-md-2">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addanewuser">
-                Add a New  User
-            </button>
-        </div> -->
-
-        <div class="col-md-2">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moviemodal">
-                Add Move Dailogue
-            </button>
-        </div>
+  <div class="text-center" style="margin: 20px 0px 20px 0px;">         
+      <h1 class="text-secondary">Video Dailogue</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#moviemodal">
+    Add Move Dailogue
+    </button>
+    </div>
+  </div>
 </div>
-</div>
+
 <div class="container ">
 
   <table class="table" id="movietable">
@@ -140,13 +133,9 @@
                     <button id="addRow2" type="button" class="btn btn-info">Add Row</button>
                 </div>
             </div>
-
-
-            <div class="text-center" style="margin: 20px 0px 20px 0px;">
-         
-            <button id="submitbtn" type="submit" class="btn btn-info">Submit</button>
-     </div>
-            
+             <div class="text-center" style="margin: 20px 0px 20px 0px;">
+               <button id="submitbtn" type="submit" class="btn btn-info">Submit</button>
+             </div>     
         </form>
         </div>
         
@@ -162,49 +151,49 @@
 
 
   <script type="text/javascript">
-        // add row
+        // add row castrow
         $("#addRow").click(function () {
-            let html = '';
-            html += '<div id="inputFormRow">';
-            html += '<div class="input-group mb-3"><div class="col-md-3">';     
-            html += '<input type="text" name="cast_name[]" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
-            html += ' </div><div class="col-md-3">';   
-            html += '  <input type="text" name="cast_gender[]" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
-            html += '</div> <div class="col-md-3">';  
-            html += ' <input type="text" name="cast_character[]" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
-            html += ' </div><div class="col-md-3">';      
-            html += '<div class="input-group-append">';
-            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
-            html += '</div></div>';
-            html += '</div>';
+            let castrow = '';
+            castrow += '<div id="inputFormRow">';
+            castrow += '<div class="input-group mb-3"><div class="col-md-3">';     
+            castrow += '<input type="text" name="cast_name[]" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
+            castrow += ' </div><div class="col-md-3">';   
+            castrow += '  <input type="text" name="cast_gender[]" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
+            castrow += '</div> <div class="col-md-3">';  
+            castrow += ' <input type="text" name="cast_character[]" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
+            castrow += ' </div><div class="col-md-3">';      
+            castrow += '<div class="input-group-append">';
+            castrow += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            castrow += '</div></div>';
+            castrow += '</div>';
 
-            $('#newRow').append(html);
+            $('#newRow').append(castrow);
         });
 
         // remove row
         $(document).on('click', '#removeRow', function () {
             $(this).closest('#inputFormRow').remove();
         });
+           // add row dailogue_row
+          $("#addRow2").click(function () {
+              let dailogue_row = '';
+              dailogue_row += '<div id="inputFormRow2">';
+              dailogue_row += '<div class="input-group mb-3"><div class="col-md-2">';
+              dailogue_row += '<input type="time"  step=".1" name="start_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+              dailogue_row += ' </div><div class="col-md-2">';   
+              dailogue_row += '<input type="time" step=".1" name="end_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+              dailogue_row += '</div> <div class="col-md-2">';  
+              dailogue_row += '  <input type="text" name="character_name[]" class="form-control m-input" placeholder="Character name" autocomplete="off">';
+              dailogue_row += '</div> <div class="col-md-2">';  
+              dailogue_row += ' <input type="text" name="dailogue[]" class="form-control m-input" placeholder="Dailogue" autocomplete="off">';
+              dailogue_row += ' </div><div class="col-md-2">';      
+              dailogue_row += '<div class="input-group-append">';
+              dailogue_row += '<button id="removeRow2" type="button" class="btn btn-danger">Remove</button>';
+              dailogue_row += '</div></div>';
+              dailogue_row += '</div>';
 
-        $("#addRow2").click(function () {
-            let html = '';
-            html += '<div id="inputFormRow2">';
-            html += '<div class="input-group mb-3"><div class="col-md-2">';
-            html += '<input type="time"  step=".1" name="start_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
-            html += ' </div><div class="col-md-2">';   
-            html += '<input type="time" step=".1" name="end_time[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
-            html += '</div> <div class="col-md-2">';  
-            html += '  <input type="text" name="character_name[]" class="form-control m-input" placeholder="Character name" autocomplete="off">';
-            html += '</div> <div class="col-md-2">';  
-            html += ' <input type="text" name="dailogue[]" class="form-control m-input" placeholder="Dailogue" autocomplete="off">';
-            html += ' </div><div class="col-md-2">';      
-            html += '<div class="input-group-append">';
-            html += '<button id="removeRow2" type="button" class="btn btn-danger">Remove</button>';
-            html += '</div></div>';
-            html += '</div>';
-
-            $('#newRow2').append(html);
-        });
+              $('#newRow2').append(dailogue_row);
+          });
 
         // remove row
         $(document).on('click', '#removeRow2', function () {
@@ -213,85 +202,70 @@
 
 
 $(document).ready(function() {
-        // this is the id of the form
     $("#moviedalogue").submit(function(e) {
-
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-
+    e.preventDefault(); 
     var form = $(this);
     var url = form.attr('action');
-
     $.ajax({
           type: "POST",
           url: url,
-          data: form.serialize(), // serializes the form's elements.
+          data: form.serialize(), 
           success: function(data)
           {
-              alert(data); // show response from the php script.
-          }
+              alert(data);           }
         });
     });
 });
 
  function editmovedailogue(id) {
- //  alert(id);
-
   let url="{{url('api/GetAllMoviesDialoguebyid/')}}"+'/'+id;
    $.get(url, function(data, status){
-    // alert("Data: " + data + "\nStatus: " + status);
     $('#movie_name').val(data.movie_name);
     $('#movie_durstion').val(data.movie_durstion);
     $('#movie_id').val(data.id);
-
-
-
-      let html3='';  
-      $.each( data.casts, function( key, value ) {
-        alert( key + ": " + value.character_name );
-            html3 += '<div id="inputFormRow">';
-            html3 += '<div class="input-group mb-3"><div class="col-md-3"><input type="hidden" name="cast_id[]" value ="'+value.id+'">';
-            html3 += '<input type="text" name="cast_name[]"  value ="'+value.cast_name+'" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
-            html3 += ' </div><div class="col-md-3">';   
-            html3 += '  <input type="text" name="cast_gender[]" value ="'+value.cast_gender+'" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
-            html3 += '</div> <div class="col-md-3">';  
-            html3 += ' <input type="text" name="cast_character[]" value ="'+value.cast_character+'" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
-            html3 += ' </div><div class="col-md-3">';      
-            html3 += '<div class="input-group-append">';
-            html3 += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
-            html3 += '</div></div>';
-            html3 += '</div>';
-      });
+      let cast_edit_row='';  
+        $.each( data.casts, function( key, value ) {
+          alert( key + ": " + value.character_name );
+              cast_edit_row += '<div id="inputFormRow">';
+              cast_edit_row += '<div class="input-group mb-3"><div class="col-md-3"><input type="hidden" name="cast_id[]" value ="'+value.id+'">';
+              cast_edit_row += '<input type="text" name="cast_name[]"  value ="'+value.cast_name+'" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
+              cast_edit_row += ' </div><div class="col-md-3">';   
+              cast_edit_row += '  <input type="text" name="cast_gender[]" value ="'+value.cast_gender+'" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
+              cast_edit_row += '</div> <div class="col-md-3">';  
+              cast_edit_row += ' <input type="text" name="cast_character[]" value ="'+value.cast_character+'" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
+              cast_edit_row += ' </div><div class="col-md-3">';      
+              cast_edit_row += '<div class="input-group-append">';
+              cast_edit_row += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+              cast_edit_row += '</div></div>';
+              cast_edit_row += '</div>';
+        });
       
-      let html2 = '';
-      $.each( data.dailogues, function( key, val ) {
-       
-            html2 += '<div id="inputFormRow2">';
-            html2 += '<div class="input-group mb-3"><div class="col-md-2"><input type="hidden" name="dailogue_id[]" value ="'+val.id+'">';
-            html2 += '<input type="time"  step=".1" name="start_time[]" value ="'+val.start_time+'" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
-            html2 += ' </div><div class="col-md-2">';   
-            html2 += '<input type="time" step=".1" name="end_time[]" value ="'+val.end_time+'" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
-            html2 += '</div> <div class="col-md-2">';  
-            html2 += '  <input type="text" name="character_name[]" value ="'+val.character_name+'" class="form-control m-input" placeholder="Character name" autocomplete="off">';
-            html2 += '</div> <div class="col-md-2">';  
-            html2 += ' <input type="text" name="dailogue[]" value ="'+val.dailogue+'" class="form-control m-input" placeholder="Dailogue" autocomplete="off">';
-            html2 += ' </div><div class="col-md-2">';      
-            html2 += '<div class="input-group-append">';
-            html2 += '<button id="removeRow2" type="button" class="btn btn-danger">Remove</button>';
-            html2 += '</div></div>';
-            html2 += '</div>';
-      }); 
+        let dailogue_edit_row = '';
+          $.each( data.dailogues, function( key, val ) {
+                dailogue_edit_row += '<div id="inputFormRow2">';
+                dailogue_edit_row += '<div class="input-group mb-3"><div class="col-md-2"><input type="hidden" name="dailogue_id[]" value ="'+val.id+'">';
+                dailogue_edit_row += '<input type="time"  step=".1" name="start_time[]" value ="'+val.start_time+'" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+                dailogue_edit_row += ' </div><div class="col-md-2">';   
+                dailogue_edit_row += '<input type="time" step=".1" name="end_time[]" value ="'+val.end_time+'" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+                dailogue_edit_row += '</div> <div class="col-md-2">';  
+                dailogue_edit_row += '  <input type="text" name="character_name[]" value ="'+val.character_name+'" class="form-control m-input" placeholder="Character name" autocomplete="off">';
+                dailogue_edit_row += '</div> <div class="col-md-2">';  
+                dailogue_edit_row += ' <input type="text" name="dailogue[]" value ="'+val.dailogue+'" class="form-control m-input" placeholder="Dailogue" autocomplete="off">';
+                dailogue_edit_row += ' </div><div class="col-md-2">';      
+                dailogue_edit_row += '<div class="input-group-append">';
+                dailogue_edit_row += '<button id="removeRow2" type="button" class="btn btn-danger">Remove</button>';
+                dailogue_edit_row += '</div></div>';
+                dailogue_edit_row += '</div>';
+          }); 
      
-      $('#newRow').replaceWith(html3);
-      $('#newRow2').replaceWith(html2);
-      let actionurl="{{url('api/updateMovieDialogue')}}";
-      $("#moviedalogue").attr('action',actionurl);
-      $("#submitbtn").html("Update");
-      $('#moviemodal').modal('show');
+        $('#newRow').replaceWith(cast_edit_row);
+        $('#newRow2').replaceWith(dailogue_edit_row);
+        let actionurl="{{url('api/updateMovieDialogue')}}";
+        $("#moviedalogue").attr('action',actionurl);
+        $("#submitbtn").html("Update");
+        $('#moviemodal').modal('show');
 
-    
-  });
-
-   
+    });   
  }
     </script>
 

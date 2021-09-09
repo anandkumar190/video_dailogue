@@ -14,108 +14,82 @@ class MoveController extends Controller
 
    public function StoreMovieDialogue(Request $request) 
    {   
-
-    // $request->validate([
-    //     'movie_name' => 'required',
-    //     'movie_durstion' => 'required',
-    // ]);   
-
-        
       $movie_result= Movie::Create([
         'movie_name'=>$request->movie_name,
         'movie_durstion'=>$request->movie_durstion
        ]);
        
-    foreach ($request->cast_name as $key => $value) {
-        Cast::Create([
-            'cast_name'=>$value,
-            'movie_id'=>$movie_result->id,
-            'cast_gender'=>$request->cast_gender[$key],
-            'cast_character'=>$request->cast_character[$key],
-           ]);
-    }
+          foreach ($request->cast_name as $key => $value) {
+              Cast::Create([
+                  'cast_name'=>$value,
+                  'movie_id'=>$movie_result->id,
+                  'cast_gender'=>$request->cast_gender[$key],
+                  'cast_character'=>$request->cast_character[$key],
+                ]);
+          }
    
-    foreach ($request->start_time as $key => $val) {
-        Dailogue::Create([
-        'start_time'=>$val,
-        'movie_id'=>$movie_result->id,
-        'end_time'=>$request->end_time[$key],
-        'character_name'=>$request->character_name[$key],
-        'dailogue'=>$this->str_transforms($request->dailogue[$key]),
-        ]);
-      }
+          foreach ($request->start_time as $key => $val) {
+              Dailogue::Create([
+              'start_time'=>$val,
+              'movie_id'=>$movie_result->id,
+              'end_time'=>$request->end_time[$key],
+              'character_name'=>$request->character_name[$key],
+              'dailogue'=>$this->str_transforms($request->dailogue[$key]),
+              ]);
+            }
 
-   return "done";
+      return "done";
 
    }
-
-
+// ------------------------------------------------------------------------------------------------
    public function GetAllMoviesDialogue()
    {  
-    //$result = Movie::with('casts','dailogues')->get();
     $result = Movie::get();
     return view('welcome',compact('result'));
    }
-
-
+// ---------------------------------------------------------------------------------------------
    public function GetAllMoviesDialoguebyid($id)
    {  
-   
     $result = Movie::with('casts','dailogues')->find($id);
     return $result;
-
-
    }
-
-
+// ------------------------------------------------------------------------------------------------
    private function str_transforms($string) // this function replace multiple Punctuation except this string "I just!!! can!!! not!!! believe!!! it!!!" 
    {
     $newstr=preg_replace('/\?[? ]+/', '?', $string);
     $newstr=preg_replace('/\![! ]+/', '!', $newstr);
     return $newstr;
    }
-
-
-
+// --------------------------------------------------------------------------------------------------
    public function updateMovieDialogue(Request $request) // this function use for update
    {   
 
-    // $request->validate([
-    //     'movie_name' => 'required',
-    //     'movie_durstion' => 'required',
-    // ]);   
-
-        
       $movie_result= Movie::updateOrCreate(['id'=>$request->movie_id],[
         'movie_name'=>$request->movie_name,
         'movie_durstion'=>$request->movie_durstion
        ]);
        
-    foreach ($request->cast_name as $key => $value) {
-        Cast::updateOrCreate(['id'=>$request->cast_id[$key]],[
-            'cast_name'=>$value,
-            'movie_id'=>$movie_result->id,
-            'cast_gender'=>$request->cast_gender[$key],
-            'cast_character'=>$request->cast_character[$key],
-           ]);
-    }
-   
-    foreach ($request->start_time as $key => $val) {
-        Dailogue::updateOrCreate(['id'=>$request->dailogue_id[$key]],[
-        'start_time'=>$val,
-        'movie_id'=>$movie_result->id,
-        'end_time'=>$request->end_time[$key],
-        'character_name'=>$request->character_name[$key],
-        'dailogue'=>$this->str_transforms($request->dailogue[$key]),
-        ]);
+      foreach ($request->cast_name as $key => $value) {
+          Cast::updateOrCreate(['id'=>$request->cast_id[$key]],[
+              'cast_name'=>$value,
+              'movie_id'=>$movie_result->id,
+              'cast_gender'=>$request->cast_gender[$key],
+              'cast_character'=>$request->cast_character[$key],
+            ]);
       }
-
-   return "done";
-
+   
+      foreach ($request->start_time as $key => $val) {
+          Dailogue::updateOrCreate(['id'=>$request->dailogue_id[$key]],[
+          'start_time'=>$val,
+          'movie_id'=>$movie_result->id,
+          'end_time'=>$request->end_time[$key],
+          'character_name'=>$request->character_name[$key],
+          'dailogue'=>$this->str_transforms($request->dailogue[$key]),
+          ]);
+        }
+     return "done";
    }
-
-
-
+// ----------------------------------------------------------------------------------------------------
    public function Delete($id)
    {
        $obj=Movie::find($id);
@@ -126,9 +100,8 @@ class MoveController extends Controller
        }else{
          //return"id not find";
          return redirect('/');
-       }
-
-       
+       }    
    }
+//--------------------------------------------------------------------------------------------------  
    
 }
