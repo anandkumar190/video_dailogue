@@ -90,8 +90,7 @@ class MoveController extends Controller
      return "done";
    }
 // ----------------------------------------------------------------------------------------------------
-   public function Delete($id)
-   {
+   public function Delete($id){
        $obj=Movie::find($id);
        if (!empty($obj)) {
         $obj->delete();
@@ -102,6 +101,26 @@ class MoveController extends Controller
          return redirect('/');
        }    
    }
-//--------------------------------------------------------------------------------------------------  
-   
+//-------------------------------------------------------------------------------------------------- 
+   public function CastDelete($id){
+    $obj=Cast::find($id);
+    if (!empty($obj)) {
+     $obj->delete();
+     return"deleted";   
+    }else{
+      return"id not find";
+    }
+   } 
+//  ----------------------------------------------------------------------------------------------
+  public function DailogueDelete($id){
+   $obj=Dailogue::find($id);
+    if (!empty($obj)) {
+      $obj->delete();
+      return"deleted";   
+    }else{
+      return"id not find";
+    }
+  }   
+
+
 }

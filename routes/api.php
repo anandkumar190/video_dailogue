@@ -21,4 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('StoreMovieDialogue','MoveController@StoreMovieDialogue');
 Route::post('updateMovieDialogue','MoveController@updateMovieDialogue');
 Route::get('delete/{id}','MoveController@Delete');
+Route::get('DailogueDelete/{id}','MoveController@DailogueDelete');
+Route::get('CastDelete/{id}','MoveController@CastDelete');
 Route::get('GetAllMoviesDialoguebyid/{id}','MoveController@GetAllMoviesDialoguebyid');

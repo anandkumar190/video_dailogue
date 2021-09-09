@@ -151,31 +151,35 @@
 
 
   <script type="text/javascript">
-        // add row castrow
-        $("#addRow").click(function () {
-            let castrow = '';
-            castrow += '<div id="inputFormRow">';
-            castrow += '<div class="input-group mb-3"><div class="col-md-3">';     
-            castrow += '<input type="text" name="cast_name[]" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
-            castrow += ' </div><div class="col-md-3">';   
-            castrow += '  <input type="text" name="cast_gender[]" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
-            castrow += '</div> <div class="col-md-3">';  
-            castrow += ' <input type="text" name="cast_character[]" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
-            castrow += ' </div><div class="col-md-3">';      
-            castrow += '<div class="input-group-append">';
-            castrow += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
-            castrow += '</div></div>';
-            castrow += '</div>';
 
-            $('#newRow').append(castrow);
-        });
 
         // remove row
         $(document).on('click', '#removeRow', function () {
+
+          let castid = $(this).data('cast_id');    
+           if(castid !== undefined){
+            let costdeleteapi="{{url('api/CastDelete/')}}"+'/'+castid;
+            $.get(costdeleteapi, function(data, status){
+            });
+           }
             $(this).closest('#inputFormRow').remove();
         });
-           // add row dailogue_row
-          $("#addRow2").click(function () {
+
+        // remove row
+        $(document).on('click', '#removeRow2', function () {    
+          let dailogueid = $(this).data('dailogue_id');    
+           if(dailogueid !== undefined){
+            let costdeleteapi="{{url('api/DailogueDelete/')}}"+'/'+dailogueid;
+            $.get(costdeleteapi, function(data, status){
+            });
+           }    
+            $(this).closest('#inputFormRow2').remove();
+        });
+
+
+    $(document).ready(function() {
+          // add row dailogue_row
+      $("#addRow2").click(function () {
               let dailogue_row = '';
               dailogue_row += '<div id="inputFormRow2">';
               dailogue_row += '<div class="input-group mb-3"><div class="col-md-2">';
@@ -194,28 +198,40 @@
 
               $('#newRow2').append(dailogue_row);
           });
+              // add row castrow
+              $("#addRow").click(function () {
+            let castrow = '';
+            castrow += '<div id="inputFormRow">';
+            castrow += '<div class="input-group mb-3"><div class="col-md-3">';     
+            castrow += '<input type="text" name="cast_name[]" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
+            castrow += ' </div><div class="col-md-3">';   
+            castrow += '  <input type="text" name="cast_gender[]" class="form-control m-input" placeholder="Cast gender" autocomplete="off">';
+            castrow += '</div> <div class="col-md-3">';  
+            castrow += ' <input type="text" name="cast_character[]" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
+            castrow += ' </div><div class="col-md-3">';      
+            castrow += '<div class="input-group-append">';
+            castrow += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            castrow += '</div></div>';
+            castrow += '</div>';
 
-        // remove row
-        $(document).on('click', '#removeRow2', function () {
-            $(this).closest('#inputFormRow2').remove();
+            $('#newRow').append(castrow);
         });
 
 
-$(document).ready(function() {
-    $("#moviedalogue").submit(function(e) {
-    e.preventDefault(); 
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-          type: "POST",
-          url: url,
-          data: form.serialize(), 
-          success: function(data)
-          {
-              alert(data);           }
+
+        $("#moviedalogue").submit(function(e) {
+        e.preventDefault(); 
+        var form = $(this);
+        var url = form.attr('action');
+        $.ajax({
+              type: "POST",
+              url: url,
+              data: form.serialize(), 
+              success: function(data)
+              {        }
+            });
         });
     });
-});
 
  function editmovedailogue(id) {
   let url="{{url('api/GetAllMoviesDialoguebyid/')}}"+'/'+id;
@@ -225,7 +241,6 @@ $(document).ready(function() {
     $('#movie_id').val(data.id);
       let cast_edit_row='';  
         $.each( data.casts, function( key, value ) {
-          alert( key + ": " + value.character_name );
               cast_edit_row += '<div id="inputFormRow">';
               cast_edit_row += '<div class="input-group mb-3"><div class="col-md-3"><input type="hidden" name="cast_id[]" value ="'+value.id+'">';
               cast_edit_row += '<input type="text" name="cast_name[]"  value ="'+value.cast_name+'" class="form-control m-input" placeholder="Cast name" autocomplete="off">';
@@ -235,7 +250,7 @@ $(document).ready(function() {
               cast_edit_row += ' <input type="text" name="cast_character[]" value ="'+value.cast_character+'" class="form-control m-input" placeholder="Cast character" autocomplete="off">';
               cast_edit_row += ' </div><div class="col-md-3">';      
               cast_edit_row += '<div class="input-group-append">';
-              cast_edit_row += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+              cast_edit_row += '<button id="removeRow" type="button" data-cast_id="'+value.id+'" class="btn btn-danger">Remove</button>';
               cast_edit_row += '</div></div>';
               cast_edit_row += '</div>';
         });
@@ -253,7 +268,7 @@ $(document).ready(function() {
                 dailogue_edit_row += ' <input type="text" name="dailogue[]" value ="'+val.dailogue+'" class="form-control m-input" placeholder="Dailogue" autocomplete="off">';
                 dailogue_edit_row += ' </div><div class="col-md-2">';      
                 dailogue_edit_row += '<div class="input-group-append">';
-                dailogue_edit_row += '<button id="removeRow2" type="button" class="btn btn-danger">Remove</button>';
+                dailogue_edit_row += '<button id="removeRow2" type="button" data-dailogue_id="'+val.id+'" class="btn btn-danger">Remove</button>';
                 dailogue_edit_row += '</div></div>';
                 dailogue_edit_row += '</div>';
           }); 
