@@ -55,10 +55,13 @@ class MoveController extends Controller
    }
 // ------------------------------------------------------------------------------------------------
    private function str_transforms($string) // this function replace multiple Punctuation except this string "I just!!! can!!! not!!! believe!!! it!!!" 
-   {
-    $newstr=preg_replace('/\?[? ]+/', '?', $string);
-    $newstr=preg_replace('/\![! ]+/', '!', $newstr);
-    return $newstr;
+   { 
+       if (preg_match("/[a-z 0-9]+!!!|[a-z0-9 ]+\?\?\?/", $string)) {
+         return $string;
+         }
+         $newstr=preg_replace('/\?[? ]+/', '?', $string);
+         $newstr=preg_replace('/\![! ]+/', '!', $newstr);
+         return $newstr;
    }
 // --------------------------------------------------------------------------------------------------
    public function updateMovieDialogue(Request $request) // this function use for update
